@@ -8,34 +8,16 @@ import {
 
 import { Loading } from "../components/Loading.jsx";
 
-import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-import axios from "axios";
+import { useGetPokemon } from "../hooks";
 
 export function PokemonInformation() {
   const { name } = useParams();
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { pokemon, status } = useGetPokemon(name);
 
-  useEffect(() => {
-    axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-      .then((response) => {
-        setData(response.data);
-        console.log(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Fail to obtain the data:", error);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
-
+  if (status === "loading") return <Loading />;
+  if (status === "error") return <div>Something went wrong!</div>;
   return (
     <>
       <div className="flex justify-center items-center h-screen">
@@ -44,11 +26,13 @@ export function PokemonInformation() {
             className="flex justify-center"
             title={name.toUpperCase()}
           />
-          <img
-            className="w-24 transition hover:scale-125"
-            src={data.sprites.front_default}
-            alt=""
-          />
+          {pokemon.sprites ? (
+            <img
+              className="w-24 transition hover:scale-125"
+              src={pokemon.sprites.front_default}
+              alt=""
+            />
+          ) : null}
           <CardContent className="flex flex-row justify-between">
             <div className="flex flex-col gap-2">
               <strong>Order:</strong>
@@ -57,11 +41,15 @@ export function PokemonInformation() {
               <strong>Abilities:</strong>
             </div>
             <div className="flex flex-col gap-2 items-end">
-              <p>{data.order}</p>
-              <p>{data.base_experience}</p>
-              <p>{data.height}</p>
+              <p>{pokemon.order}</p>
+              <p>{pokemon.base_experience}</p>
+              <p>{pokemon.height}</p>
               <p>
-                {data.abilities.map((item) => item.ability.name).join(", ")}
+                {pokemon.abilities
+                  ? pokemon.abilities
+                      .map((item) => item.ability.name)
+                      .join(", ")
+                  : null}
               </p>
             </div>
           </CardContent>
