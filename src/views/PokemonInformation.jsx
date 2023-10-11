@@ -21,7 +21,7 @@ export function PokemonInformation() {
   return (
     <>
       <div className="flex justify-center items-center h-screen">
-        <Card className="flex flex-col items-center w-4/12">
+        <Card className="flex flex-col items-center w-8/12 md:w-6/12 lg:w-4/12">
           <CardHeader
             className="flex justify-center"
             title={name.toUpperCase()}
