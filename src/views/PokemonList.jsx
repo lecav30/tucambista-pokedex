@@ -9,6 +9,7 @@ import { useGetTwentyPokemon } from "../hooks";
 
 export function PokemonList() {
   const { pokemons, status } = useGetTwentyPokemon();
+  console.log("pokemons", pokemons);
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <div>Something went wrong!</div>;

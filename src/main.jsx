@@ -9,7 +9,7 @@ import { PokemonList } from "./views/PokemonList";
 import { PokemonInformation } from "./views/PokemonInformation";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import store from "./redux/store";
 
 const router = createBrowserRouter([
   {

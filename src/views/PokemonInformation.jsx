@@ -15,6 +15,7 @@ import { useGetPokemon } from "../hooks";
 export function PokemonInformation() {
   const { name } = useParams();
   const { pokemon, status } = useGetPokemon(name);
+  console.log("pokemon", pokemon);
 
   if (status === "loading") return <Loading />;
   if (status === "error") return <div>Something went wrong!</div>;
