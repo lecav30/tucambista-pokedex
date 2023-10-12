@@ -1,34 +1,12 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import reducers, { InitialRootState } from "./reducers";
-import { createEpicMiddleware } from "redux-observable";
-import { Action } from "redux-actions";
+import { createStore, applyMiddleware } from "redux";
+import reducers from "./reducers";
 import epics from "./epics";
+import { createEpicMiddleware } from "redux-observable";
 
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
-  }
-}
+const epicMiddleware = createEpicMiddleware();
 
-const composeEnhancers =
-  (typeof window !== "undefined" &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
+const store = createStore(reducers, applyMiddleware(epicMiddleware));
 
-const epicMiddleware = createEpicMiddleware<
-  Action<any>,
-  Action<any>,
-  InitialRootState
->();
-
-function configureStore(initialState?: InitialRootState) {
-  const middleware = [epicMiddleware];
-  const enhancer = composeEnhancers(applyMiddleware(...middleware));
-  return createStore(reducers, initialState, enhancer);
-}
-
-const store = configureStore();
-
-epicMiddleware.run(epics as any);
+epicMiddleware.run(epics);
 
 export default store;

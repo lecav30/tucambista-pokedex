@@ -5,12 +5,13 @@ import {
   fetchPokemonAction,
   fetchTwentyPokemonsAction,
 } from "./redux/PokemonRedux/PokemonActions";
-import { RootState } from "./models/redux";
+// import { RootState } from "./models/redux";
 
 export function useGetTwentyPokemon() {
   const dispatch = useDispatch();
   const { pokemons, status } = useSelector(
-    (state: RootState) => state.PokemonState
+    (state: any) => state.PokemonReducer
+    // (state: RootState) => state.PokemonState
   );
 
   useEffect(() => {
@@ -25,7 +26,8 @@ export function useGetTwentyPokemon() {
 export function useGetPokemon(name: string) {
   const dispatch = useDispatch();
   const { pokemon, status } = useSelector(
-    (state: RootState) => state.PokemonState
+    (state: any) => state.PokemonReducer
+    // (state: RootState) => state.PokemonState
   );
 
   useEffect(() => {

@@ -17,7 +17,8 @@ interface Action {
   payload?: any;
 }
 
-export const fetchTwentyPokemonsEpic = (action$: Observable<Action>) =>
+// export const fetchTwentyPokemonsEpic = (action$: Observable<Action>) =>
+export const fetchTwentyPokemonsEpic = (action$) =>
   action$.pipe(
     ofType(FETCH_TWENTY_POKEMONS),
     mergeMap(() =>
@@ -41,12 +42,13 @@ export const fetchTwentyPokemonsEpic = (action$: Observable<Action>) =>
     })
   );
 
-export const fetchPokemonEpic = (action$: Observable<Action>) =>
+// export const fetchPokemonEpic = (action$: Observable<Action>) =>
+export const fetchPokemonEpic = (action$) =>
   action$.pipe(
     ofType(FETCH_POKEMON),
     mergeMap((action: any) =>
       from(
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${action.payload.name}`)
+        axios.get(`https://pokeapi.co/api/v2/pokemon/${action.payload}`)
       ).pipe(
         map((response: any) => {
           console.log(response.data);

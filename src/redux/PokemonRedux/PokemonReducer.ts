@@ -4,21 +4,28 @@ import {
   FETCH_POKEMON_ERROR,
   FETCH_POKEMON_SUCCESS,
 } from "../types";
-import { Action } from "redux-actions";
+// import { Action } from "redux-actions";
 
-export interface PokemonState {
-  pokemons: any;
-  pokemon: any;
-  status: null;
-}
+// export interface PokemonState {
+//   pokemons: any;
+//   pokemon: any;
+//   status: null;
+// }
 
-const initialState: PokemonState = {
+// const initialState: PokemonState = {
+//   pokemons: [],
+//   pokemon: {},
+//   status: null,
+// };
+
+const initialState = {
   pokemons: [],
   pokemon: {},
   status: null,
 };
 
-export const PokemonReducer = (state = initialState, action: Action<any>) => {
+// export const PokemonReducer = (state = initialState, action: Action<any>) => {
+export const PokemonReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_TWENTY_POKEMONS_SUCCESS:
       return {
